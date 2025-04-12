@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Health Check</title>
+        <style>
+            body {
+                font-family: monospace;
+                background: #111;
+                color: #eee;
+                padding: 20px;
+            }
+
+            h1 {
+                text-align: center;
+                color: #0f0;
+            }
+
+            #info {
+                text-align: center;
+                color: #aaa;
+                font-family: monospace;
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .server {
+                background: #222;
+                margin: 10px 0;
+                padding: 10px;
+                border-radius: 8px;
+            }
+
+            .server h3 {
+                margin: 0 0 5px;
+            }
+
+            .status {
+                display: flex;
+                justify-content: space-between;
+                font-weight: bold;
+            }
+
+            .status .up {
+                color: #0f0;
+            }
+
+            .status .warn {
+                color: #ffa500;
+            }
+
+            .status .down {
+                color: #f00;
+            }
+
+            .latency {
+                font-size: 0.9em;
+                color: #ccc;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding: 15px;
+                text-align: center;
+                font-family: monospace;
+                font-size: 13px;
+                color: #888;
+                background-color: #111;
+                border-top: 1px solid #333;
+            }
+
+            footer a {
+                color: #0f0;
+                text-decoration: none;
+            }
+
+            footer a:hover {
+                text-decoration: underline;
+                color: #0ff;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>API Health Status</h1>
+        <div id="info">Checking status...</div>
+
+        <div id="health-status" class="server">
+            <h3>Server Status</h3>
+            <div class="status">
+                <span id="status-text">Loading...</span>
+                <span id="latency" class="latency">Latency: --</span>
+            </div>
+        </div>
+
+        <footer>
+            Made with ❤️ by
+            <a
+                href="https://github.com/FurqanHun"
+                target="_blank"
+                style="color: #0077cc; text-decoration: none"
+                >0xQan</a
+            >
+            |
+            <a
+                href="https://github.com/FurqanHun/wa-status"
+                target="_blank"
+                style="color: #0077cc; text-decoration: none"
+                >Project Link</a
+            >
+
+            <a href="./health.html">Check API Health Status</a>
+        </footer>
+
+        <script>
+            const healthAPI = "https://wa-status-api.onrender.com/health";
+
+            async function checkHealth() {
+                const startTime = Date.now();
+                try {
+                    const response = await fetch(healthAPI);
+                    const data = await response.json();
+                    const endTime = Date.now();
+                    const latency = endTime - startTime;
+
+                    const statusElement =
+                        document.getElementById("status-text");
+                    const latencyElement = document.getElementById("latency");
+
+                    if (data.status === "up") {
+                        statusElement.textContent = "API is UP! 🎉";
+                        statusElement.classList.add("up");
+                        statusElement.classList.remove("down", "warn");
+                    } else {
+                        statusElement.textContent = "API is DOWN! 😞";
+                        statusElement.classList.add("down");
+                        statusElement.classList.remove("up", "warn");
+                    }
+
+                    latencyElement.textContent = `Latency: ${latency}ms`;
+                } catch (error) {
+                    const statusElement =
+                        document.getElementById("status-text");
+                    const latencyElement = document.getElementById("latency");
+
+                    statusElement.textContent =
+                        "Error checking health status. Please try again later.";
+                    statusElement.classList.add("warn");
+                    statusElement.classList.remove("up", "down");
+                    latencyElement.textContent = "";
+                }
+            }
+
+            // Run the health check when the page loads
+            checkHealth();
+        </script>
+    </body>
+</html>
