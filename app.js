@@ -1,4 +1,3 @@
-const globalAPI = "https://wa-status-api-sg.onrender.com/api/status";
 const COOLDOWN_TIME = 10000; // 10 seconds cooldown
 const servers = {
   "Core Chat (c3.whatsapp.net:5222)": "https://c3.whatsapp.net",
@@ -58,11 +57,14 @@ function showLoading() {
     <div style="font-size: 1.5rem; padding: 2rem;">
       🔄 Fetching WhatsApp Status...
     </div>
+    <p style="color: orange; font-size: 1rem; font-style: italic;">
+      ⏳ Please note that it may take a minute to load the data.
+    </p>
   `;
 }
 
-async function fetchGlobalStatus() {
-  const res = await fetch(globalAPI);
+async function fetchGlobalStatus(apiURL) {
+  const res = await fetch(apiURL);
   return await res.json();
 }
 
@@ -99,7 +101,8 @@ async function main() {
   setLastRefreshTime();
   showLoading();
 
-  const globalData = await fetchGlobalStatus();
+  const selectedServer = document.getElementById("global-server").value;
+  const globalData = await fetchGlobalStatus(selectedServer);
   const container = document.getElementById("container");
   container.innerHTML = ""; // clear loading
 
@@ -110,5 +113,7 @@ async function main() {
     renderStatus(name, globalInfo);
   }
 }
+
+document.getElementById("global-server").addEventListener("change", main);
 
 main();

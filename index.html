@@ -6,17 +6,52 @@
         <link href="styles.css" rel="stylesheet" />
     </head>
     <body>
+        <h1>WhatsApp Server Status</h1>
         <!-- Info Banner -->
         <div id="info">
-            🌍 <strong>Global</strong>: Checked from our server in
-            <strong>Singapore</strong> | 🧑 <strong>Regional</strong>: Checked
-            directly from <strong>your device</strong>
+            🌍 <strong>Global</strong>: Checked from our server | 🧑
+            <strong>Regional</strong>: Checked directly from
+            <strong>your device</strong>
         </div>
 
-        <h1>WhatsApp Server Status</h1>
+        <div id="info">
+            <label for="global-server">Choose Global Server Location:</label>
+            <select id="global-server">
+                <option
+                    value="https://wa-status-api-sg.onrender.com/api/status"
+                >
+                    🇸🇬 Singapore (wa-status-api-sg)
+                </option>
+                <option
+                    value="https://wa-status-api-us-east-va.onrender.com/api/status"
+                >
+                    🇺🇸 Virginia, US-East (wa-status-api-us-east-va)
+                </option>
+                <option
+                    value="https://wa-status-api-us-east-ohio.onrender.com/api/status"
+                >
+                    🇺🇸 Ohio, US-East (wa-status-api-us-east-ohio)
+                </option>
+                <option
+                    value="https://wa-status-api-eu-central.onrender.com/api/status"
+                >
+                    🇩🇪 Frankfurt, EU-Central (wa-status-api-eu-central)
+                </option>
+                <option
+                    value="https://wa-status-api-us-west.onrender.com/api/status"
+                >
+                    🇺🇸 Oregon, US-West (wa-status-api-us-west)
+                </option>
+            </select>
 
-        <!-- Status Table Container -->
-        <div id="container"></div>
+            <p>Choose a server to check its status</p>
+        </div>
+
+        <div id="container">
+            <p style="color: orange; font-size: 1rem; font-style: italic">
+                ⏳ Please note that it may take a minute to load the data.
+            </p>
+        </div>
 
         <!-- Footer -->
         <footer>
