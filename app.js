@@ -1,5 +1,5 @@
-const globalAPI = "https://wa-status-api.onrender.com/api/status";
-const COOLDOWN_TIME = 10000; // 60 seconds cooldown
+const globalAPI = "https://wa-status-api-sg.onrender.com/api/status";
+const COOLDOWN_TIME = 10000; // 10 seconds cooldown
 const servers = {
   "Core Chat (c3.whatsapp.net:5222)": "https://c3.whatsapp.net",
   "Core Chat (c4.whatsapp.net:5222)": "https://c4.whatsapp.net",
